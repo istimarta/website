@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Techno-Realism - Isti Marta Sukma</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0c;
+    --fg: #e8e4df;
+    --accent: #c4f534;
+    --accent2: #34d4f5;
+    --muted: #6b6760;
+    --surface: #141418;
+    --surface2: #1c1c22;
+    --border: #2a2a30;
+    --red: #f54e4e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========== NOISE OVERLAY ========== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ========== NAVIGATION ========== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,12,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.2rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--fg); }
+
+  /* ========== HERO ========== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(196,245,52,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(196,245,52,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 70%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    filter: blur(180px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  .hero-glow.g1 { top: -100px; right: -100px; background: var(--accent); }
+  .hero-glow.g2 { bottom: -200px; left: -100px; background: var(--accent2); }
+
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-label::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(3.5rem, 9vw, 9rem);
+    line-height: 0.95;
+    font-weight: 400;
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    margin-top: 2.5rem;
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 2;
+    font-weight: 300;
+  }
+
+  .hero-meta {
+    margin-top: 3.5rem;
+    display: flex;
+    gap: 3rem;
+    position: relative;
+    z-index: 2;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .hero-meta-item span:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .hero-meta-item span:last-child {
+    font-size: 0.95rem;
+    color: var(--fg);
+    font-weight: 400;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    animation: float 2s ease-in-out infinite;
+  }
+  .scroll-indicator .line {
+    width: 1px; height: 30px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+  }
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ========== SECTION COMMON ========== */
+  section { padding: 6rem 3rem; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--accent);
+  }
+
+  /* ========== THESIS ========== */
+  .thesis {
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .thesis-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+    line-height: 1.4;
+    max-width: 850px;
+    font-weight: 400;
+  }
+  .thesis-text .highlight {
+    color: var(--accent);
+    position: relative;
+  }
+
+  /* ========== THREE CONCEPTS ========== */
+  .concepts {
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .concept-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s, transform 0.3s;
+  }
+  .concept-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .concept-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s;
+  }
+  .concept-card:hover::before { transform: scaleX(1); }
+
+  .concept-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 4rem;
+    color: var(--surface2);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    transition: color 0.4s;
+  }
+  .concept-card:hover .concept-number { color: var(--border); }
+
+  .concept-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: var(--fg);
+  }
+
+  .concept-card p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ========== EVOLUTION TIMELINE ========== */
+  .evolution {
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .timeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 3rem;
+    overflow-x: auto;
+    padding-bottom: 2rem;
+    scrollbar-width: none;
+  }
+  .timeline::-webkit-scrollbar { display: none; }
+
+  .timeline-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 130px;
+    position: relative;
+  }
+  .timeline-node .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 2px solid var(--muted);
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+  }
+  .timeline-node:last-child .dot {
+    background: var(--accent);
+    border-color: var(--accent);
+    width: 14px; height: 14px;
+    box-shadow: 0 0 20px rgba(196,245,52,0.4);
+  }
+  .timeline-node .name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+    color: var(--fg);
+  }
+  .timeline-node:last-child .name {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .timeline-node .year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+  .timeline-arrow {
+    width: 40px;
+    height: 1px;
+    background: var(--border);
+    flex-shrink: 0;
+    position: relative;
+    top: -14px;
+  }
+  .timeline-arrow:last-of-type {
+    background: linear-gradient(90deg, var(--border), var(--accent));
+  }
+
+  /* ========== CASE STUDIES ========== */
+  .cases {
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .case-card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    background: var(--surface);
+    transition: border-color 0.3s;
+  }
+  .case-card:hover { border-color: var(--accent2); }
+
+  .case-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid;
+    display: inline-block;
+    margin-bottom: 1.2rem;
+  }
+  .case-tag.surveil { color: var(--red); border-color: var(--red); }
+  .case-tag.election { color: var(--accent); border-color: var(--accent); }
+  .case-tag.geopolitics { color: var(--accent2); border-color: var(--accent2); }
+
+  .case-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+  .case-card p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ========== ABOUT AUTHOR ========== */
+  .author {
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .author-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    margin-top: 2rem;
+    align-items: start;
+  }
+  .author-info h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+  .author-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .author-bio {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--muted);
+    font-weight: 300;
+  }
+  .author-bio + .author-bio { margin-top: 1rem; }
+
+  .author-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .author-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border);
+    color: var(--fg);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+  }
+  .author-links a:hover {
+    border-color: var(--accent);
+    background: rgba(196,245,52,0.05);
+    color: var(--accent);
+  }
+
+  .author-affiliations {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .affiliation {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .affiliation-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .affiliation-value {
+    font-size: 0.95rem;
+    color: var(--fg);
+  }
+
+  /* ========== PUBLICATION CTA ========== */
+  .publication {
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 8rem 3rem;
+    position: relative;
+  }
+  .publication .pub-glow {
+    position: absolute;
+    width: 500px; height: 300px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.1;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--accent);
+    pointer-events: none;
+  }
+  .publication h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+  .publication p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 2;
+    font-weight: 300;
+  }
+  .pub-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 2.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+  }
+  .pub-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(196,245,52,0.25);
+  }
+  .pub-btn svg { width: 16px; height: 16px; }
+
+  /* ========== FOOTER ========== */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer .f-left {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+  footer .f-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ========== ANIMATIONS ========== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.75rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .concepts-grid, .cases-grid { grid-template-columns: 1fr; }
+    .author-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .timeline { flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .timeline-arrow { display: none; }
+    .timeline-node { min-width: 100px; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.8rem; }
+    .hero-meta { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">T / R</div>
+  <div class="nav-links">
+    <a href="#thesis">Thesis</a>
+    <a href="#concepts">Concepts</a>
+    <a href="#evolution">Evolution</a>
+    <a href="#cases">Case Studies</a>
+    <a href="#author">Author</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow g1"></div>
+  <div class="hero-glow g2"></div>
+
+  <div class="hero-label">A New Political Science Theory</div>
+  <h1 class="fade-in">Techno-<br><em>Realism</em></h1>
+  <p class="hero-sub fade-in">Technology is not merely a tool for power - it is a means of power itself. A theory derived from political realism, navigating the complex intersections of technology and politics.</p>
+
+  <div class="hero-meta fade-in">
+    <div class="hero-meta-item">
+      <span>Author</span>
+      <span>Isti Marta Sukma</span>
+    </div>
+    <div class="hero-meta-item">
+      <span>Published</span>
+      <span>Security & Defence Quarterly, 2024</span>
+    </div>
+    <div class="hero-meta-item">
+      <span>Affiliation</span>
+      <span>University of Warsaw</span>
+    </div>
+    <div class="hero-meta-item">
+      <span>Featured</span>
+      <span>TEDx University of Warsaw 2025</span>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- THESIS -->
+<section class="thesis" id="thesis">
+  <div class="section-label">Core Thesis</div>
+  <p class="thesis-text fade-in">
+    Techno-realism introduces a new theoretical framework derived from political realism, placing <span class="highlight">technology at the core of power analysis</span>. It examines how the innate human drive for survival shapes identity formation in an era where sovereignty and authority extend into <span class="highlight">digital and technological realms</span>.
+  </p>
+</section>
+
+<!-- THREE CONCEPTS -->
+<section class="concepts" id="concepts">
+  <div class="section-label">Three Core Concepts</div>
+  <div class="concepts-grid">
+    <div class="concept-card fade-in">
+      <div class="concept-number">01</div>
+      <h3>Identity Establishment</h3>
+      <p>Technology and the survival instinct embedded in human nature fundamentally shape how political, social, and digital identities are formed and expressed. Social media platforms and digital ecosystems reinforce and transform identities across diverse political groups.</p>
+    </div>
+    <div class="concept-card fade-in">
+      <div class="concept-number">02</div>
+      <h3>Technology as Power</h3>
+      <p>Technology is not just an instrument wielded by those in power - it has become the central source of power itself. From surveillance systems and cyber measures to AI and quantum computing, technological capability defines modern political authority.</p>
+    </div>
+    <div class="concept-card fade-in">
+      <div class="concept-number">03</div>
+      <h3>Non-State Actors</h3>
+      <p>Big Tech companies, NGOs, hacker groups, and transnational activist networks shape data governance, influence political processes, and challenge traditional notions of sovereignty - demanding recognition beyond state-centric analysis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EVOLUTION -->
+<section class="evolution" id="evolution">
+  <div class="section-label">Genealogy of Political Realism</div>
+  <div class="timeline fade-in">
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="name">Thucydides</div>
+      <div class="year">5th c. BCE</div>
+    </div>
+    <div class="timeline-arrow"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="name">Machiavelli</div>
+      <div class="year">16th c.</div>
+    </div>
+    <div class="timeline-arrow"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="name">Hobbes</div>
+      <div class="year">17th c.</div>
+    </div>
+    <div class="timeline-arrow"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="name">Morgenthau</div>
+      <div class="year">1948</div>
+    </div>
+    <div class="timeline-arrow"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="name">Waltz</div>
+      <div class="year">1979</div>
+    </div>
+    <div class="timeline-arrow"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="name">Mearsheimer</div>
+      <div class="year">2001</div>
+    </div>
+    <div class="timeline-arrow"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="name">Rose</div>
+      <div class="year">1998</div>
+    </div>
+    <div class="timeline-arrow"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="name">Sukma</div>
+      <div class="year">2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="cases" id="cases">
+  <div class="section-label">Applied Case Studies</div>
+  <div class="cases-grid">
+    <div class="case-card fade-in">
+      <div class="case-tag surveil">Surveillance</div>
+      <h3>Xinjiang Cyber Measures</h3>
+      <p>Examining how cyberpolitics and surveillance technologies are deployed to exert state control, reshape identities, and manage populations within the Xinjiang region - illustrating technology as a direct instrument of political power.</p>
+    </div>
+    <div class="case-card fade-in">
+      <div class="case-tag election">Elections</div>
+      <h3>Indonesia 2024 Elections</h3>
+      <p>Analyzing how technology shaped political power struggles during Indonesia's 2024 elections, including social media manipulation and the use of information and electronic transaction law to control freedom of speech.</p>
+    </div>
+    <div class="case-card fade-in">
+      <div class="case-tag geopolitics">Geopolitics</div>
+      <h3>Indo-Pacific Digital Authoritarianism</h3>
+      <p>Exploring regional power dynamics in the Indo-Pacific as states and non-state actors confront the spread of digital authoritarianism, and how technological dominance reshapes geopolitical relationships.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<section class="author" id="author">
+  <div class="section-label">About the Author</div>
+  <div class="author-layout">
+    <div class="author-info">
+      <h2>Isti Marta Sukma</h2>
+      <div class="author-title">M.A. - Doctoral Researcher</div>
+      <p class="author-bio">An Indonesian writer and interdisciplinary researcher specializing in politics, defense, and technology, with a focus on cyber and technological warfare in the Indo-Pacific region.</p>
+      <p class="author-bio">Her research spans national interests, global power theories, counter-terrorism, civil-military integration, cybersecurity, AI, quantum technologies, surveillance systems, maritime security, and political ideology.</p>
+      <div class="author-links">
+        <a href="https://istimartasukma.com/" target="_blank">Website ↗</a>
+        <a href="https://securityanddefence.pl/Techno-Realism-Navigating-New-Challenges-in-the-Contemporary-Role-of-Technology-in,188303,0,2.html" target="_blank">Full Paper ↗</a>
+        <a href="https://www.researchgate.net/profile/Isti-Sukma" target="_blank">ResearchGate ↗</a>
+      </div>
+    </div>
+    <div class="author-affiliations">
+      <div class="affiliation">
+        <div class="affiliation-label">Current Position</div>
+        <div class="affiliation-value">PhD Student - Political Science & Public Administration</div>
+      </div>
+      <div class="affiliation">
+        <div class="affiliation-label">Institution</div>
+        <div class="affiliation-value">University of Warsaw, Faculty of Political Science & International Studies</div>
+      </div>
+      <div class="affiliation">
+        <div class="affiliation-label">Research Focus</div>
+        <div class="affiliation-value">Tech Policy, Cybersecurity, Digital Governance, Indo-Pacific Geopolitics</div>
+      </div>
+      <div class="affiliation">
+        <div class="affiliation-label">Publication</div>
+        <div class="affiliation-value">Security and Defence Quarterly, Vol. 46(2), pp. 24-46, 2024</div>
+      </div>
+      <div class="affiliation">
+        <div class="affiliation-label">Speaking</div>
+        <div class="affiliation-value">TEDx University of Warsaw 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATION CTA -->
+<section class="publication">
+  <div class="pub-glow"></div>
+  <div class="section-label" style="justify-content: center;">Read the Research</div>
+  <h2 class="fade-in">Navigating New Challenges in the<br>Contemporary Role of Technology in Politics</h2>
+  <p class="fade-in">Published in Security and Defence Quarterly - Open Access (CC BY)</p>
+  <a href="https://securityanddefence.pl/Techno-Realism-Navigating-New-Challenges-in-the-Contemporary-Role-of-Technology-in,188303,0,2.html" target="_blank" class="pub-btn fade-in">
+    Read Full Paper
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-left">TECHNO-REALISM © 2024 ISTI MARTA SUKMA</div>
+  <div class="f-right">Technology as a means of power</div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
