@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Techno-Realism - Isti Marta Sukma</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Righteous&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0a0c;
@@ -23,7 +23,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     background: var(--bg);
     color: var(--fg);
     overflow-x: hidden;
@@ -236,7 +236,7 @@
   .hero-glow.g2 { bottom: -200px; left: -100px; background: var(--accent2); }
 
   .hero-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'VT323', monospace;
     font-size: 0.75rem;
     color: var(--accent);
     letter-spacing: 0.2em;
@@ -255,7 +255,7 @@
   }
 
   .hero h1 {
-    font-family: 'Instrument Serif', serif;
+    font-family: 'Righteous', serif;
     font-size: clamp(3.5rem, 9vw, 9rem);
     line-height: 0.95;
     font-weight: 400;
@@ -293,7 +293,7 @@
     gap: 0.3rem;
   }
   .hero-meta-item span:first-child {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'VT323', monospace;
     font-size: 0.65rem;
     color: var(--muted);
     text-transform: uppercase;
@@ -318,7 +318,7 @@
     font-size: 0.7rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'VT323', monospace;
     animation: float 2s ease-in-out infinite;
   }
   .scroll-indicator .line {
@@ -381,8 +381,8 @@
 
   .xp-content {
     padding: 8px;
-    background: #ece9d8;
-    color: #000;
+    background: #0a0a0c;
+    color: #e8e4df;
   }
 
   section {
@@ -390,7 +390,7 @@
     margin-bottom: 20px;
   }
   .section-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'VT323', monospace;
     font-size: 0.7rem;
     color: var(--accent);
     letter-spacing: 0.2em;
@@ -413,7 +413,7 @@
     margin: 0 auto;
   }
   .thesis-text {
-    font-family: 'Instrument Serif', serif;
+    font-family: 'Righteous', serif;
     font-size: clamp(1.6rem, 3.5vw, 2.8rem);
     line-height: 1.4;
     max-width: 850px;
@@ -439,16 +439,17 @@
   }
 
   .concept-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #1a1a20;
+    border: 1px solid #ff1493;
     padding: 2.5rem 2rem;
     position: relative;
     overflow: hidden;
-    transition: border-color 0.4s, transform 0.3s;
+    transition: border-color 0.4s, transform 0.3s, background 0.3s;
   }
   .concept-card:hover {
-    border-color: var(--accent);
+    border-color: #ff69b4;
     transform: translateY(-4px);
+    background: #252530;
   }
   .concept-card::before {
     content: '';
@@ -463,27 +464,27 @@
   .concept-card:hover::before { transform: scaleX(1); }
 
   .concept-number {
-    font-family: 'Instrument Serif', serif;
+    font-family: 'Righteous', serif;
     font-size: 4rem;
-    color: var(--surface2);
+    color: #ff1493;
     line-height: 1;
     margin-bottom: 1.5rem;
     transition: color 0.4s;
   }
-  .concept-card:hover .concept-number { color: var(--border); }
+  .concept-card:hover .concept-number { color: #ff69b4; }
 
   .concept-card h3 {
-    font-family: 'Instrument Serif', serif;
+    font-family: 'Righteous', serif;
     font-size: 1.5rem;
     font-weight: 400;
     margin-bottom: 1rem;
-    color: var(--fg);
+    color: #ffffff;
   }
 
   .concept-card p {
     font-size: 0.9rem;
     line-height: 1.7;
-    color: var(--muted);
+    color: #c0c0c0;
     font-weight: 300;
   }
 
@@ -537,7 +538,7 @@
     font-weight: 600;
   }
   .timeline-node .year {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'VT323', monospace;
     font-size: 0.65rem;
     color: var(--muted);
     margin-top: 0.3rem;
@@ -569,38 +570,53 @@
   }
 
   .case-card {
-    border: 1px solid var(--border);
+    border: 1px solid #ff1493;
     padding: 2rem;
     position: relative;
-    background: var(--surface);
-    transition: border-color 0.3s;
+    background: #1a1a20;
+    transition: border-color 0.3s, background 0.3s;
   }
-  .case-card:hover { border-color: var(--accent2); }
+  .case-card:hover { 
+    border-color: #ff69b4;
+    background: #252530;
+  }
 
   .case-tag {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'VT323', monospace;
     font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    padding: 0.3rem 0.7rem;
+    padding: 0.5rem 1rem;
     border: 1px solid;
     display: inline-block;
     margin-bottom: 1.2rem;
+    font-weight: bold;
+    background: rgba(255, 20, 147, 0.1);
   }
-  .case-tag.surveil { color: var(--red); border-color: var(--red); }
-  .case-tag.election { color: var(--accent); border-color: var(--accent); }
-  .case-tag.geopolitics { color: var(--accent2); border-color: var(--accent2); }
+  .case-tag.surveil { 
+    color: #ff4d7f;
+    border-color: #ff4d7f;
+  }
+  .case-tag.election { 
+    color: #ff1493;
+    border-color: #ff1493;
+  }
+  .case-tag.geopolitics { 
+    color: #ff69b4;
+    border-color: #ff69b4;
+  }
 
   .case-card h3 {
-    font-family: 'Instrument Serif', serif;
+    font-family: 'Righteous', serif;
     font-size: 1.35rem;
     font-weight: 400;
     margin-bottom: 0.8rem;
+    color: #ffffff;
   }
   .case-card p {
     font-size: 0.85rem;
     line-height: 1.7;
-    color: var(--muted);
+    color: #c0c0c0;
     font-weight: 300;
   }
 
@@ -618,13 +634,13 @@
     align-items: start;
   }
   .author-info h2 {
-    font-family: 'Instrument Serif', serif;
+    font-family: 'Righteous', serif;
     font-size: 2.5rem;
     font-weight: 400;
     margin-bottom: 0.4rem;
   }
   .author-title {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'VT323', monospace;
     font-size: 0.75rem;
     color: var(--accent);
     letter-spacing: 0.1em;
@@ -675,7 +691,7 @@
     background: var(--surface);
   }
   .affiliation-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'VT323', monospace;
     font-size: 0.6rem;
     color: var(--muted);
     letter-spacing: 0.15em;
@@ -708,7 +724,7 @@
     pointer-events: none;
   }
   .publication h2 {
-    font-family: 'Instrument Serif', serif;
+    font-family: 'Righteous', serif;
     font-size: clamp(1.8rem, 3vw, 2.5rem);
     font-weight: 400;
     margin-bottom: 1.5rem;
@@ -757,13 +773,13 @@
     gap: 1rem;
   }
   footer .f-left {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'VT323', monospace;
     font-size: 0.7rem;
     color: var(--muted);
     letter-spacing: 0.1em;
   }
   footer .f-right {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'VT323', monospace;
     font-size: 0.65rem;
     color: var(--muted);
     letter-spacing: 0.05em;
@@ -854,7 +870,7 @@
 <section class="thesis" id="thesis">
   <div class="xp-window">
     <div class="xp-titlebar">
-      <span>Core Thesis</span>
+      <span>🧠 Core Thesis</span>
       <div class="xp-titlebar-buttons">
         <div class="xp-titlebar-btn">_</div>
         <div class="xp-titlebar-btn">□</div>
@@ -874,7 +890,7 @@
 <section class="concepts" id="concepts">
   <div class="xp-window">
     <div class="xp-titlebar">
-      <span>Three Core Concepts</span>
+      <span>💡 Three Core Concepts</span>
       <div class="xp-titlebar-buttons">
         <div class="xp-titlebar-btn">_</div>
         <div class="xp-titlebar-btn">□</div>
@@ -908,7 +924,7 @@
 <section class="evolution" id="evolution">
   <div class="xp-window">
     <div class="xp-titlebar">
-      <span>Genealogy of Political Realism</span>
+      <span>📜 Genealogy of Political Realism</span>
       <div class="xp-titlebar-buttons">
         <div class="xp-titlebar-btn">_</div>
         <div class="xp-titlebar-btn">□</div>
@@ -974,7 +990,7 @@
 <section class="cases" id="cases">
   <div class="xp-window">
     <div class="xp-titlebar">
-      <span>Applied Case Studies</span>
+      <span>🔍 Applied Case Studies</span>
       <div class="xp-titlebar-buttons">
         <div class="xp-titlebar-btn">_</div>
         <div class="xp-titlebar-btn">□</div>
@@ -1006,39 +1022,51 @@
 
 <!-- AUTHOR -->
 <section class="author" id="author">
-  <div class="section-label">About the Author</div>
-  <div class="author-layout">
-    <div class="author-info">
-      <h2>Isti Marta Sukma</h2>
-      <div class="author-title">M.A. - Doctoral Researcher</div>
-      <p class="author-bio">An Indonesian writer and interdisciplinary researcher specializing in politics, defense, and technology, with a focus on cyber and technological warfare in the Indo-Pacific region.</p>
-      <p class="author-bio">Her research spans national interests, global power theories, counter-terrorism, civil-military integration, cybersecurity, AI, quantum technologies, surveillance systems, maritime security, and political ideology.</p>
-      <div class="author-links">
-        <a href="https://istimartasukma.com/" target="_blank">Website ↗</a>
-        <a href="https://securityanddefence.pl/Techno-Realism-Navigating-New-Challenges-in-the-Contemporary-Role-of-Technology-in,188303,0,2.html" target="_blank">Full Paper ↗</a>
-        <a href="https://www.researchgate.net/profile/Isti-Sukma" target="_blank">ResearchGate ↗</a>
+  <div class="xp-window">
+    <div class="xp-titlebar">
+      <span>👤 About the Author</span>
+      <div class="xp-titlebar-buttons">
+        <div class="xp-titlebar-btn">_</div>
+        <div class="xp-titlebar-btn">□</div>
+        <div class="xp-titlebar-btn">✕</div>
       </div>
     </div>
-    <div class="author-affiliations">
-      <div class="affiliation">
-        <div class="affiliation-label">Current Position</div>
-        <div class="affiliation-value">PhD Student - Political Science & Public Administration</div>
-      </div>
-      <div class="affiliation">
-        <div class="affiliation-label">Institution</div>
-        <div class="affiliation-value">University of Warsaw, Faculty of Political Science & International Studies</div>
-      </div>
-      <div class="affiliation">
-        <div class="affiliation-label">Research Focus</div>
-        <div class="affiliation-value">Tech Policy, Cybersecurity, Digital Governance, Indo-Pacific Geopolitics</div>
-      </div>
-      <div class="affiliation">
-        <div class="affiliation-label">Publication</div>
-        <div class="affiliation-value">Security and Defence Quarterly, Vol. 46(2), pp. 24-46, 2024</div>
-      </div>
-      <div class="affiliation">
-        <div class="affiliation-label">Speaking</div>
-        <div class="affiliation-value">TEDx University of Warsaw 2025</div>
+    <div class="xp-content">
+      <div class="section-label">About the Author</div>
+      <div class="author-layout">
+        <div class="author-info">
+          <h2>Isti Marta Sukma</h2>
+          <div class="author-title">M.A. - Doctoral Researcher</div>
+          <p class="author-bio">An Indonesian writer and interdisciplinary researcher specializing in politics, defense, and technology, with a focus on cyber and technological warfare in the Indo-Pacific region.</p>
+          <p class="author-bio">Her research spans national interests, global power theories, counter-terrorism, civil-military integration, cybersecurity, AI, quantum technologies, surveillance systems, maritime security, and political ideology.</p>
+          <div class="author-links">
+            <a href="https://istimartasukma.com/" target="_blank">Website ↗</a>
+            <a href="https://securityanddefence.pl/Techno-Realism-Navigating-New-Challenges-in-the-Contemporary-Role-of-Technology-in,188303,0,2.html" target="_blank">Full Paper ↗</a>
+            <a href="https://www.researchgate.net/profile/Isti-Sukma" target="_blank">ResearchGate ↗</a>
+          </div>
+        </div>
+        <div class="author-affiliations">
+          <div class="affiliation">
+            <div class="affiliation-label">Current Position</div>
+            <div class="affiliation-value">PhD Student - Political Science & Public Administration</div>
+          </div>
+          <div class="affiliation">
+            <div class="affiliation-label">Institution</div>
+            <div class="affiliation-value">University of Warsaw, Faculty of Political Science & International Studies</div>
+          </div>
+          <div class="affiliation">
+            <div class="affiliation-label">Research Focus</div>
+            <div class="affiliation-value">Tech Policy, Cybersecurity, Digital Governance, Indo-Pacific Geopolitics</div>
+          </div>
+          <div class="affiliation">
+            <div class="affiliation-label">Publication</div>
+            <div class="affiliation-value">Security and Defence Quarterly, Vol. 46(2), pp. 24-46, 2024</div>
+          </div>
+          <div class="affiliation">
+            <div class="affiliation-label">Speaking</div>
+            <div class="affiliation-value">TEDx University of Warsaw 2025</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1046,14 +1074,26 @@
 
 <!-- PUBLICATION CTA -->
 <section class="publication">
-  <div class="pub-glow"></div>
-  <div class="section-label" style="justify-content: center;">Read the Research</div>
-  <h2 class="fade-in">Navigating New Challenges in the<br>Contemporary Role of Technology in Politics</h2>
-  <p class="fade-in">Published in Security and Defence Quarterly - Open Access (CC BY)</p>
-  <a href="https://securityanddefence.pl/Techno-Realism-Navigating-New-Challenges-in-the-Contemporary-Role-of-Technology-in,188303,0,2.html" target="_blank" class="pub-btn fade-in">
-    Read Full Paper
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-  </a>
+  <div class="xp-window">
+    <div class="xp-titlebar">
+      <span>📖 Read the Research</span>
+      <div class="xp-titlebar-buttons">
+        <div class="xp-titlebar-btn">_</div>
+        <div class="xp-titlebar-btn">□</div>
+        <div class="xp-titlebar-btn">✕</div>
+      </div>
+    </div>
+    <div class="xp-content">
+      <div class="pub-glow"></div>
+      <div class="section-label" style="justify-content: center;">Read the Research</div>
+      <h2 class="fade-in">Navigating New Challenges in the<br>Contemporary Role of Technology in Politics</h2>
+      <p class="fade-in">Published in Security and Defence Quarterly - Open Access (CC BY)</p>
+      <a href="https://securityanddefence.pl/Techno-Realism-Navigating-New-Challenges-in-the-Contemporary-Role-of-Technology-in,188303,0,2.html" target="_blank" class="pub-btn fade-in">
+        Read Full Paper
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- FOOTER -->
