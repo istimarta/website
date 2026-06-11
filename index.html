@@ -4,647 +4,299 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Techno-Realism - Isti Marta Sukma</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Righteous&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0c;
-    --fg: #e8e4df;
-    --accent: #ff1493;
-    --accent2: #ff69b4;
-    --muted: #6b6760;
-    --surface: #141418;
-    --surface2: #1c1c22;
-    --border: #2a2a30;
-    --red: #ff1493;
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6e6e6e;
+    --light: #a0a0a0;
+    --border: #e0e0e0;
+    --accent: #8b0000;
+    --surface: #f7f6f4;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Source Sans 3', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Fredoka', sans-serif;
+    font-family: var(--sans);
     background: var(--bg);
     color: var(--fg);
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ========== WINDOWS XP PINK SCROLLBAR ========== */
-  ::-webkit-scrollbar {
-    width: 16px;
-  }
-  ::-webkit-scrollbar-track {
-    background: linear-gradient(90deg, #1a1a1f, #252530);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, #ff69b4, #ff1493);
-    border: 2px solid rgba(255, 20, 147, 0.3);
-    border-radius: 8px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(90deg, #ff1493, #ff0080);
-  }
-
-  /* ========== NOISE OVERLAY ========== */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  /* ========== XP TASKBAR ========== */
-  .taskbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(180deg, #c0c0c0 0%, #dfdfdf 100%);
-    border-top: 2px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
-    display: flex;
-    align-items: center;
-    height: 30px;
-    padding: 2px 2px;
-    gap: 3px;
-    z-index: 1000;
-  }
-
-  .start-button {
-    background: linear-gradient(180deg, #c0c0c0 0%, #a0a0a0 100%);
-    border: 2px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
-    color: black;
-    font-weight: bold;
-    font-size: 11px;
-    padding: 2px 10px;
-    cursor: pointer;
-    font-family: 'Tahoma', sans-serif;
-    transition: all 0.1s;
-  }
-
-  .start-button:active {
-    border-color: #808080 #ffffff #ffffff #808080;
-  }
-
-  .taskbar-apps {
-    display: flex;
-    gap: 2px;
-    flex: 1;
-    overflow: hidden;
-    border-left: 2px solid;
-    border-color: #ffffff #808080;
-    padding-left: 3px;
-  }
-
-  .taskbar-app {
-    background: linear-gradient(180deg, #c0c0c0 0%, #a0a0a0 100%);
-    border: 2px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
-    padding: 2px 8px;
-    cursor: pointer;
-    font-size: 11px;
-    min-width: 100px;
-    max-width: 140px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: black;
-    font-family: 'Tahoma', sans-serif;
-  }
-
-  .taskbar-app:active {
-    border-color: #808080 #ffffff #ffffff #808080;
-  }
-
-  .system-tray {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    padding: 0 4px;
-    border-left: 2px solid;
-    border-color: #ffffff #808080;
-    margin-left: auto;
-  }
-
-  .system-icon {
-    width: 16px;
-    height: 16px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .time {
-    font-size: 11px;
-    color: black;
-    font-weight: bold;
-    min-width: 50px;
-    text-align: center;
-    padding: 0 4px;
-    border-left: 2px solid;
-    border-color: #ffffff #808080;
-  }
-
-  /* ========== NAVIGATION - XP TOOLBAR ========== */
+  /* NAV */
   nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 100;
-    padding: 3px 4px;
+    padding: 1.2rem 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(180deg, #c0c0c0 0%, #dfdfdf 100%);
-    border-bottom: 2px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
-    height: 32px;
-    gap: 1rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
   }
-
   .nav-logo {
-    font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
-    font-size: 11px;
-    color: black;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-    padding: 2px 6px;
-  }
-
-  .nav-links { 
-    display: flex; 
-    gap: 1px;
-  }
-  .nav-links a {
-    color: black;
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: 400;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--fg);
     letter-spacing: 0.02em;
-    text-transform: none;
-    transition: all 0.1s;
-    padding: 4px 10px;
-    background: linear-gradient(180deg, #c0c0c0 0%, #a0a0a0 100%);
-    border: 1px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
-    cursor: pointer;
-    font-family: 'Tahoma', sans-serif;
   }
-  .nav-links a:hover {
-    background: linear-gradient(180deg, #dfdfdf 0%, #a0a0a0 100%);
+  .nav-links { display: flex; gap: 2.2rem; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: var(--sans);
+    transition: color 0.3s;
   }
-  .nav-links a:active {
-    border-color: #808080 #ffffff #ffffff #808080;
-  }
+  .nav-links a:hover { color: var(--fg); }
 
-  /* ========== HERO ========== */
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 8rem 3rem 4rem;
-    position: relative;
-    overflow: hidden;
+    max-width: 860px;
+    margin: 0 auto;
   }
-
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(196,245,52,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(196,245,52,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 70%);
-  }
-
-  .hero-glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    filter: blur(180px);
-    opacity: 0.15;
-    pointer-events: none;
-  }
-  .hero-glow.g1 { top: -100px; right: -100px; background: var(--accent); }
-  .hero-glow.g2 { bottom: -200px; left: -100px; background: var(--accent2); }
-
   .hero-label {
-    font-family: 'VT323', monospace;
-    font-size: 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
     color: var(--accent);
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    position: relative;
-    z-index: 2;
+    margin-bottom: 2.5rem;
   }
-  .hero-label::before {
-    content: '';
-    width: 40px; height: 1px;
-    background: var(--accent);
-  }
-
   .hero h1 {
-    font-family: 'Righteous', serif;
-    font-size: clamp(3.5rem, 9vw, 9rem);
-    line-height: 0.95;
-    font-weight: 400;
-    position: relative;
-    z-index: 2;
-    max-width: 900px;
+    font-family: var(--serif);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    font-weight: 300;
+    color: var(--fg);
   }
   .hero h1 em {
     font-style: italic;
-    color: var(--accent);
+    font-weight: 400;
   }
-
   .hero-sub {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     font-size: 1.15rem;
     color: var(--muted);
-    max-width: 560px;
-    line-height: 1.7;
-    position: relative;
-    z-index: 2;
+    max-width: 520px;
+    line-height: 1.75;
     font-weight: 300;
   }
-
+  .book-badge {
+    margin-top: 1.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1.3rem;
+    border: 1px solid var(--accent);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+  }
+  .book-icon { font-size: 0.5rem; }
   .hero-meta {
     margin-top: 3.5rem;
     display: flex;
     gap: 3rem;
-    position: relative;
-    z-index: 2;
     flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
   }
-  .hero-meta-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 0.25rem; }
   .hero-meta-item span:first-child {
-    font-family: 'VT323', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--light);
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
   }
   .hero-meta-item span:last-child {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     color: var(--fg);
     font-weight: 400;
   }
 
-  .scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--muted);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-family: 'VT323', monospace;
-    animation: float 2s ease-in-out infinite;
-  }
-  .scroll-indicator .line {
-    width: 1px; height: 30px;
-    background: linear-gradient(to bottom, var(--muted), transparent);
-  }
-  @keyframes float {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
-  }
-
-  /* ========== XP WINDOW STYLING ========== */
-  .xp-window {
-    background: #ece9d8;
-    border: 2px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
-    box-shadow: 1px 1px 0 0 #dfdfdf inset, -1px -1px 0 0 #404040 inset;
-    margin: 1.5rem auto;
-    max-width: 95%;
-    padding: 0;
-  }
-
-  .xp-titlebar {
-    background: linear-gradient(90deg, #000080 0%, #1084d7 100%);
-    color: white;
-    padding: 2px 2px 2px 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 22px;
-    font-weight: bold;
-    font-size: 11px;
-    font-family: 'Tahoma', sans-serif;
-  }
-
-  .xp-titlebar-buttons {
-    display: flex;
-    gap: 2px;
-  }
-
-  .xp-titlebar-btn {
-    width: 18px;
-    height: 16px;
-    background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
-    border: 1px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    font-weight: bold;
-    color: black;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  .xp-titlebar-btn:active {
-    border-color: #808080 #ffffff #ffffff #808080;
-  }
-
-  .xp-content {
-    padding: 8px;
-    background: #0a0a0c;
-    color: #e8e4df;
-  }
-
+  /* SECTIONS */
   section {
-    padding: 0;
-    margin-bottom: 20px;
+    padding: 5rem 3rem;
+    max-width: 860px;
+    margin: 0 auto;
   }
   .section-label {
-    font-family: 'VT323', monospace;
-    font-size: 0.7rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
     color: var(--accent);
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    margin-bottom: 1.8rem;
   }
-  .section-label::before {
-    content: '';
-    width: 30px; height: 1px;
-    background: var(--accent);
-  }
-
-  /* ========== THESIS ========== */
-  .thesis {
-    border-top: 1px solid var(--border);
-    max-width: 1200px;
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    max-width: 860px;
     margin: 0 auto;
   }
+
+  /* THESIS */
   .thesis-text {
-    font-family: 'Righteous', serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
-    line-height: 1.4;
-    max-width: 850px;
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    line-height: 1.55;
     font-weight: 400;
+    color: var(--fg);
   }
-  .thesis-text .highlight {
-    color: var(--accent);
-    position: relative;
-  }
+  .thesis-text .hl { color: var(--accent); }
 
-  /* ========== THREE CONCEPTS ========== */
-  .concepts {
-    border-top: 1px solid var(--border);
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
+  /* CONCEPTS */
   .concepts-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
   }
-
-  .concept-card {
-    background: #1a1a20;
-    border: 1px solid #ff1493;
-    padding: 2.5rem 2rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.4s, transform 0.3s, background 0.3s;
-  }
-  .concept-card:hover {
-    border-color: #ff69b4;
-    transform: translateY(-4px);
-    background: #252530;
-  }
-  .concept-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s;
-  }
-  .concept-card:hover::before { transform: scaleX(1); }
-
-  .concept-number {
-    font-family: 'Righteous', serif;
-    font-size: 4rem;
-    color: #ff1493;
+  .concept-card { border-top: 2px solid var(--border); padding-top: 1.5rem; transition: border-color 0.3s; }
+  .concept-card:hover { border-color: var(--accent); }
+  .concept-num {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--border);
     line-height: 1;
-    margin-bottom: 1.5rem;
-    transition: color 0.4s;
-  }
-  .concept-card:hover .concept-number { color: #ff69b4; }
-
-  .concept-card h3 {
-    font-family: 'Righteous', serif;
-    font-size: 1.5rem;
-    font-weight: 400;
     margin-bottom: 1rem;
-    color: #ffffff;
   }
-
+  .concept-card:hover .concept-num { color: var(--accent); }
+  .concept-card h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
   .concept-card p {
     font-size: 0.9rem;
-    line-height: 1.7;
-    color: #c0c0c0;
+    line-height: 1.75;
+    color: var(--muted);
     font-weight: 300;
   }
 
-  /* ========== EVOLUTION TIMELINE ========== */
-  .evolution {
-    border-top: 1px solid var(--border);
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
+  /* EVOLUTION */
   .timeline {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     overflow-x: auto;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     scrollbar-width: none;
   }
   .timeline::-webkit-scrollbar { display: none; }
-
   .timeline-node {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 130px;
-    position: relative;
+    min-width: 95px;
+    text-align: center;
   }
   .timeline-node .dot {
-    width: 10px; height: 10px;
+    width: 8px; height: 8px;
     border-radius: 50%;
     background: var(--border);
-    border: 2px solid var(--muted);
-    margin-bottom: 1rem;
-    transition: all 0.3s;
+    margin-bottom: 0.8rem;
   }
   .timeline-node:last-child .dot {
     background: var(--accent);
-    border-color: var(--accent);
-    width: 14px; height: 14px;
-    box-shadow: 0 0 20px rgba(196,245,52,0.4);
+    width: 10px; height: 10px;
   }
-  .timeline-node .name {
-    font-size: 0.85rem;
+  .timeline-node .t-name {
+    font-family: var(--serif);
+    font-size: 0.9rem;
     font-weight: 500;
-    text-align: center;
     color: var(--fg);
   }
-  .timeline-node:last-child .name {
-    color: var(--accent);
-    font-weight: 600;
+  .timeline-node:last-child .t-name { color: var(--accent); font-weight: 600; }
+  .timeline-node .t-year {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--light);
+    margin-top: 0.2rem;
   }
-  .timeline-node .year {
-    font-family: 'VT323', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    margin-top: 0.3rem;
-  }
-  .timeline-arrow {
-    width: 40px;
+  .timeline-line {
+    width: 32px;
     height: 1px;
     background: var(--border);
     flex-shrink: 0;
-    position: relative;
-    top: -14px;
-  }
-  .timeline-arrow:last-of-type {
-    background: linear-gradient(90deg, var(--border), var(--accent));
+    margin-top: 3.5px;
   }
 
-  /* ========== CASE STUDIES ========== */
-  .cases {
-    border-top: 1px solid var(--border);
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .cases-grid {
+  /* CASES */
+  .cases-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0; }
+  .case-item {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
+    grid-template-columns: 140px 1fr;
+    gap: 2rem;
+    padding: 1.8rem 0;
+    border-top: 1px solid var(--border);
+    align-items: baseline;
   }
-
-  .case-card {
-    border: 1px solid #ff1493;
-    padding: 2rem;
-    position: relative;
-    background: #1a1a20;
-    transition: border-color 0.3s, background 0.3s;
-  }
-  .case-card:hover { 
-    border-color: #ff69b4;
-    background: #252530;
-  }
-
+  .case-item:last-child { border-bottom: 1px solid var(--border); }
   .case-tag {
-    font-family: 'VT323', monospace;
-    font-size: 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.62rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    padding: 0.5rem 1rem;
-    border: 1px solid;
-    display: inline-block;
-    margin-bottom: 1.2rem;
-    font-weight: bold;
-    background: rgba(255, 20, 147, 0.1);
+    letter-spacing: 0.12em;
+    color: var(--accent);
   }
-  .case-tag.surveil { 
-    color: #ff4d7f;
-    border-color: #ff4d7f;
+  .case-content h3 {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
   }
-  .case-tag.election { 
-    color: #ff1493;
-    border-color: #ff1493;
-  }
-  .case-tag.geopolitics { 
-    color: #ff69b4;
-    border-color: #ff69b4;
-  }
-
-  .case-card h3 {
-    font-family: 'Righteous', serif;
-    font-size: 1.35rem;
-    font-weight: 400;
-    margin-bottom: 0.8rem;
-    color: #ffffff;
-  }
-  .case-card p {
-    font-size: 0.85rem;
-    line-height: 1.7;
-    color: #c0c0c0;
+  .case-content p {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--muted);
     font-weight: 300;
   }
 
-  /* ========== ABOUT AUTHOR ========== */
-  .author {
-    border-top: 1px solid var(--border);
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+  /* AUTHOR */
   .author-layout {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 1fr;
     gap: 4rem;
     margin-top: 2rem;
     align-items: start;
   }
   .author-info h2 {
-    font-family: 'Righteous', serif;
-    font-size: 2.5rem;
+    font-family: var(--serif);
+    font-size: 2rem;
     font-weight: 400;
-    margin-bottom: 0.4rem;
   }
-  .author-title {
-    font-family: 'VT323', monospace;
-    font-size: 0.75rem;
+  .author-subtitle {
+    font-family: var(--mono);
+    font-size: 0.7rem;
     color: var(--accent);
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    margin-top: 0.4rem;
     margin-bottom: 1.5rem;
   }
   .author-bio {
@@ -653,8 +305,7 @@
     color: var(--muted);
     font-weight: 300;
   }
-  .author-bio + .author-bio { margin-top: 1rem; }
-
+  .author-bio + .author-bio { margin-top: 0.8rem; }
   .author-links {
     display: flex;
     gap: 1rem;
@@ -662,185 +313,132 @@
     flex-wrap: wrap;
   }
   .author-links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.2rem;
+    display: inline-block;
+    padding: 0.55rem 1.2rem;
     border: 1px solid var(--border);
     color: var(--fg);
     text-decoration: none;
     font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
+    font-weight: 400;
     transition: all 0.3s;
   }
   .author-links a:hover {
     border-color: var(--accent);
-    background: rgba(196,245,52,0.05);
     color: var(--accent);
   }
 
-  .author-affiliations {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .affiliation {
-    padding: 1.5rem;
-    border: 1px solid var(--border);
-    background: var(--surface);
-  }
-  .affiliation-label {
-    font-family: 'VT323', monospace;
-    font-size: 0.6rem;
-    color: var(--muted);
-    letter-spacing: 0.15em;
+  .affiliations { display: flex; flex-direction: column; gap: 1.2rem; }
+  .aff-item { padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
+  .aff-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .aff-label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--light);
     text-transform: uppercase;
-    margin-bottom: 0.5rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.3rem;
   }
-  .affiliation-value {
-    font-size: 0.95rem;
-    color: var(--fg);
-  }
+  .aff-value { font-size: 0.92rem; color: var(--fg); }
 
-  /* ========== PUBLICATION CTA ========== */
-  .publication {
-    border-top: 1px solid var(--border);
-    max-width: 1200px;
-    margin: 0 auto;
+  /* CTA */
+  .cta {
     text-align: center;
-    padding: 8rem 3rem;
-    position: relative;
+    padding: 6rem 3rem;
+    max-width: 860px;
+    margin: 0 auto;
   }
-  .publication .pub-glow {
-    position: absolute;
-    width: 500px; height: 300px;
-    border-radius: 50%;
-    filter: blur(150px);
-    opacity: 0.1;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--accent);
-    pointer-events: none;
-  }
-  .publication h2 {
-    font-family: 'Righteous', serif;
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
+  .cta h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
     font-weight: 400;
-    margin-bottom: 1.5rem;
-    position: relative;
-    z-index: 2;
+    margin-bottom: 0.8rem;
   }
-  .publication p {
-    font-size: 0.95rem;
+  .cta p {
+    font-size: 0.9rem;
     color: var(--muted);
-    margin-bottom: 2.5rem;
-    position: relative;
-    z-index: 2;
+    margin-bottom: 2rem;
     font-weight: 300;
   }
-  .pub-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 1rem 2.5rem;
-    background: var(--accent);
+  .cta-btn {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    background: var(--fg);
     color: var(--bg);
     text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    transition: all 0.3s;
-    position: relative;
-    z-index: 2;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.3s;
   }
-  .pub-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(196,245,52,0.25);
-  }
-  .pub-btn svg { width: 16px; height: 16px; }
+  .cta-btn:hover { background: var(--accent); }
 
-  /* ========== FOOTER ========== */
+  /* FOOTER */
   footer {
     border-top: 1px solid var(--border);
-    padding: 3rem;
+    padding: 2.5rem 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 860px;
     margin: 0 auto;
     flex-wrap: wrap;
     gap: 1rem;
   }
-  footer .f-left {
-    font-family: 'VT323', monospace;
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-  }
-  footer .f-right {
-    font-family: 'VT323', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.05em;
+  footer span {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--light);
+    letter-spacing: 0.08em;
   }
 
-  /* ========== ANIMATIONS ========== */
+  /* FADE */
   .fade-in {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
   }
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-  /* ========== RESPONSIVE ========== */
-  @media (max-width: 900px) {
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1rem; }
-    .nav-links a { font-size: 0.75rem; }
-    section { padding: 4rem 1.5rem; }
-    .hero { padding: 7rem 1.5rem 4rem; }
-    .concepts-grid, .cases-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 1.2rem; }
+    .nav-links a { font-size: 0.72rem; }
+    section, .cta { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .concepts-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .author-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .case-item { grid-template-columns: 1fr; gap: 0.5rem; }
     .timeline { flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
-    .timeline-arrow { display: none; }
-    .timeline-node { min-width: 100px; }
+    .timeline-line { display: none; }
   }
-
-  @media (max-width: 600px) {
+  @media (max-width: 500px) {
     .nav-links { display: none; }
-    .hero h1 { font-size: 2.8rem; }
     .hero-meta { gap: 1.5rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-logo">T / R</div>
+  <div class="nav-logo">Techno-Realism</div>
   <div class="nav-links">
     <a href="#thesis">Thesis</a>
     <a href="#concepts">Concepts</a>
-    <a href="#evolution">Evolution</a>
-    <a href="#cases">Case Studies</a>
+    <a href="#evolution">Lineage</a>
+    <a href="#cases">Cases</a>
     <a href="#author">Author</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow g1"></div>
-  <div class="hero-glow g2"></div>
-
   <div class="hero-label">A New Political Science Theory</div>
   <h1 class="fade-in">Techno-<br><em>Realism</em></h1>
-  <p class="hero-sub fade-in">Technology is not merely a tool for power - it is a means of power itself. A theory derived from political realism, navigating the complex intersections of technology and politics.</p>
-
+  <p class="hero-sub fade-in">Technology is not merely a tool for power. It is a means of power itself. A theory derived from political realism, navigating the intersections of technology and politics.</p>
+  <div class="book-badge fade-in">
+    <span class="book-icon">&#9670;</span>
+    Forthcoming monograph signed with Springer/Palgrave Macmillan. Book coming soon.
+  </div>
   <div class="hero-meta fade-in">
     <div class="hero-meta-item">
       <span>Author</span>
@@ -859,286 +457,187 @@
       <span>TEDx University of Warsaw 2025</span>
     </div>
   </div>
-
-  <div class="scroll-indicator">
-    <span>Scroll</span>
-    <div class="line"></div>
-  </div>
 </section>
 
-<!-- THESIS -->
-<section class="thesis" id="thesis">
-  <div class="xp-window">
-    <div class="xp-titlebar">
-      <span>🧠 Core Thesis</span>
-      <div class="xp-titlebar-buttons">
-        <div class="xp-titlebar-btn">_</div>
-        <div class="xp-titlebar-btn">□</div>
-        <div class="xp-titlebar-btn">✕</div>
-      </div>
-    </div>
-    <div class="xp-content">
-      <div class="section-label">Core Thesis</div>
-      <p class="thesis-text fade-in">
-        Techno-realism introduces a new theoretical framework derived from political realism, placing <span class="highlight">technology at the core of power analysis</span>. It examines how the innate human drive for survival shapes identity formation in an era where sovereignty and authority extend into <span class="highlight">digital and technological realms</span>.
-      </p>
-    </div>
-  </div>
+<div class="divider"></div>
+
+<section id="thesis">
+  <div class="section-label">Core Thesis</div>
+  <p class="thesis-text fade-in">
+    Techno-realism places <span class="hl">technology at the core of power analysis</span>, arguing that the innate human drive for survival shapes identity formation in an era where sovereignty and authority extend into <span class="hl">digital and technological realms</span>.
+  </p>
 </section>
 
-<!-- THREE CONCEPTS -->
-<section class="concepts" id="concepts">
-  <div class="xp-window">
-    <div class="xp-titlebar">
-      <span>💡 Three Core Concepts</span>
-      <div class="xp-titlebar-buttons">
-        <div class="xp-titlebar-btn">_</div>
-        <div class="xp-titlebar-btn">□</div>
-        <div class="xp-titlebar-btn">✕</div>
-      </div>
+<div class="divider"></div>
+
+<section id="concepts">
+  <div class="section-label">Three Core Concepts</div>
+  <div class="concepts-grid">
+    <div class="concept-card fade-in">
+      <div class="concept-num">I</div>
+      <h3>Identity Establishment</h3>
+      <p>Technology and the survival instinct embedded in human nature fundamentally shape how political, social, and digital identities are formed. Digital ecosystems reinforce and transform identities across diverse political groups.</p>
     </div>
-    <div class="xp-content">
-      <div class="section-label">Three Core Concepts</div>
-      <div class="concepts-grid">
-        <div class="concept-card fade-in">
-          <div class="concept-number">01</div>
-          <h3>Identity Establishment</h3>
-          <p>Technology and the survival instinct embedded in human nature fundamentally shape how political, social, and digital identities are formed and expressed. Social media platforms and digital ecosystems reinforce and transform identities across diverse political groups.</p>
-        </div>
-        <div class="concept-card fade-in">
-          <div class="concept-number">02</div>
-          <h3>Technology as Power</h3>
-          <p>Technology is not just an instrument wielded by those in power - it has become the central source of power itself. From surveillance systems and cyber measures to AI and quantum computing, technological capability defines modern political authority.</p>
-        </div>
-        <div class="concept-card fade-in">
-          <div class="concept-number">03</div>
-          <h3>Non-State Actors</h3>
-          <p>Big Tech companies, NGOs, hacker groups, and transnational activist networks shape data governance, influence political processes, and challenge traditional notions of sovereignty - demanding recognition beyond state-centric analysis.</p>
-        </div>
-      </div>
+    <div class="concept-card fade-in">
+      <div class="concept-num">II</div>
+      <h3>Technology as Power</h3>
+      <p>Technology is not merely an instrument wielded by those in power; it has become the central source of power itself. From surveillance systems to AI and quantum computing, technological capability defines political authority.</p>
+    </div>
+    <div class="concept-card fade-in">
+      <div class="concept-num">III</div>
+      <h3>Non-State Actors</h3>
+      <p>Big Tech companies, NGOs, hacker groups, and transnational activist networks shape data governance, influence political processes, and challenge traditional notions of sovereignty beyond state-centric analysis.</p>
     </div>
   </div>
 </section>
 
-<!-- EVOLUTION -->
-<section class="evolution" id="evolution">
-  <div class="xp-window">
-    <div class="xp-titlebar">
-      <span>📜 Genealogy of Political Realism</span>
-      <div class="xp-titlebar-buttons">
-        <div class="xp-titlebar-btn">_</div>
-        <div class="xp-titlebar-btn">□</div>
-        <div class="xp-titlebar-btn">✕</div>
+<div class="divider"></div>
+
+<section id="evolution">
+  <div class="section-label">Genealogy of Political Realism</div>
+  <div class="timeline fade-in">
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="t-name">Thucydides</div>
+      <div class="t-year">5th c. BCE</div>
+    </div>
+    <div class="timeline-line"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="t-name">Machiavelli</div>
+      <div class="t-year">16th c.</div>
+    </div>
+    <div class="timeline-line"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="t-name">Hobbes</div>
+      <div class="t-year">17th c.</div>
+    </div>
+    <div class="timeline-line"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="t-name">Morgenthau</div>
+      <div class="t-year">1948</div>
+    </div>
+    <div class="timeline-line"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="t-name">Waltz</div>
+      <div class="t-year">1979</div>
+    </div>
+    <div class="timeline-line"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="t-name">Mearsheimer</div>
+      <div class="t-year">2001</div>
+    </div>
+    <div class="timeline-line"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="t-name">Rose</div>
+      <div class="t-year">1998</div>
+    </div>
+    <div class="timeline-line"></div>
+    <div class="timeline-node">
+      <div class="dot"></div>
+      <div class="t-name">Sukma</div>
+      <div class="t-year">2024</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="cases">
+  <div class="section-label">Applied Case Studies</div>
+  <div class="cases-list">
+    <div class="case-item fade-in">
+      <div class="case-tag">Surveillance</div>
+      <div class="case-content">
+        <h3>Xinjiang Cyber Measures</h3>
+        <p>Examining how cyberpolitics and surveillance technologies are deployed to exert state control, reshape identities, and manage populations, illustrating technology as a direct instrument of political power.</p>
       </div>
     </div>
-    <div class="xp-content">
-      <div class="section-label">Genealogy of Political Realism</div>
-      <div class="timeline fade-in">
-        <div class="timeline-node">
-          <div class="dot"></div>
-          <div class="name">Thucydides</div>
-          <div class="year">5th c. BCE</div>
-        </div>
-        <div class="timeline-arrow"></div>
-        <div class="timeline-node">
-          <div class="dot"></div>
-          <div class="name">Machiavelli</div>
-          <div class="year">16th c.</div>
-        </div>
-        <div class="timeline-arrow"></div>
-        <div class="timeline-node">
-          <div class="dot"></div>
-          <div class="name">Hobbes</div>
-          <div class="year">17th c.</div>
-        </div>
-        <div class="timeline-arrow"></div>
-        <div class="timeline-node">
-          <div class="dot"></div>
-          <div class="name">Morgenthau</div>
-          <div class="year">1948</div>
-        </div>
-        <div class="timeline-arrow"></div>
-        <div class="timeline-node">
-          <div class="dot"></div>
-          <div class="name">Waltz</div>
-          <div class="year">1979</div>
-        </div>
-        <div class="timeline-arrow"></div>
-        <div class="timeline-node">
-          <div class="dot"></div>
-          <div class="name">Mearsheimer</div>
-          <div class="year">2001</div>
-        </div>
-        <div class="timeline-arrow"></div>
-        <div class="timeline-node">
-          <div class="dot"></div>
-          <div class="name">Rose</div>
-          <div class="year">1998</div>
-        </div>
-        <div class="timeline-arrow"></div>
-        <div class="timeline-node">
-          <div class="dot"></div>
-          <div class="name">Sukma</div>
-          <div class="year">2024</div>
-        </div>
+    <div class="case-item fade-in">
+      <div class="case-tag">Elections</div>
+      <div class="case-content">
+        <h3>Indonesia 2024 Elections</h3>
+        <p>Analysing how technology shaped political power struggles during Indonesia's 2024 elections, including social media manipulation and the use of information and electronic transaction law to control freedom of speech.</p>
+      </div>
+    </div>
+    <div class="case-item fade-in">
+      <div class="case-tag">Geopolitics</div>
+      <div class="case-content">
+        <h3>Indo-Pacific Digital Authoritarianism</h3>
+        <p>Exploring regional power dynamics in the Indo-Pacific as states and non-state actors confront the spread of digital authoritarianism, and how technological dominance reshapes geopolitical relationships.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CASE STUDIES -->
-<section class="cases" id="cases">
-  <div class="xp-window">
-    <div class="xp-titlebar">
-      <span>🔍 Applied Case Studies</span>
-      <div class="xp-titlebar-buttons">
-        <div class="xp-titlebar-btn">_</div>
-        <div class="xp-titlebar-btn">□</div>
-        <div class="xp-titlebar-btn">✕</div>
+<div class="divider"></div>
+
+<section id="author">
+  <div class="section-label">About the Author</div>
+  <div class="author-layout">
+    <div class="author-info">
+      <h2>Isti Marta Sukma</h2>
+      <div class="author-subtitle">Doctoral Researcher</div>
+      <p class="author-bio">An Indonesian writer and interdisciplinary researcher specialising in politics, defence, and technology, with a focus on cyber and technological warfare in the Indo-Pacific region.</p>
+      <p class="author-bio">Her research spans national interests, global power theories, counter-terrorism, civil-military integration, cybersecurity, AI, quantum technologies, surveillance systems, maritime security, and political ideology.</p>
+      <div class="author-links">
+        <a href="https://istimartasukma.com/" target="_blank">Website</a>
+        <a href="https://securityanddefence.pl/Techno-Realism-Navigating-New-Challenges-in-the-Contemporary-Role-of-Technology-in,188303,0,2.html" target="_blank">Full Paper</a>
+        <a href="https://www.researchgate.net/profile/Isti-Sukma" target="_blank">ResearchGate</a>
       </div>
     </div>
-    <div class="xp-content">
-      <div class="section-label">Applied Case Studies</div>
-      <div class="cases-grid">
-        <div class="case-card fade-in">
-          <div class="case-tag surveil">Surveillance</div>
-          <h3>Xinjiang Cyber Measures</h3>
-          <p>Examining how cyberpolitics and surveillance technologies are deployed to exert state control, reshape identities, and manage populations within the Xinjiang region - illustrating technology as a direct instrument of political power.</p>
-        </div>
-        <div class="case-card fade-in">
-          <div class="case-tag election">Elections</div>
-          <h3>Indonesia 2024 Elections</h3>
-          <p>Analyzing how technology shaped political power struggles during Indonesia's 2024 elections, including social media manipulation and the use of information and electronic transaction law to control freedom of speech.</p>
-        </div>
-        <div class="case-card fade-in">
-          <div class="case-tag geopolitics">Geopolitics</div>
-          <h3>Indo-Pacific Digital Authoritarianism</h3>
-          <p>Exploring regional power dynamics in the Indo-Pacific as states and non-state actors confront the spread of digital authoritarianism, and how technological dominance reshapes geopolitical relationships.</p>
-        </div>
+    <div class="affiliations">
+      <div class="aff-item">
+        <div class="aff-label">Current Position</div>
+        <div class="aff-value">PhD Student, Political Science & Public Administration</div>
+      </div>
+      <div class="aff-item">
+        <div class="aff-label">Institution</div>
+        <div class="aff-value">University of Warsaw, Faculty of Political Science & International Studies</div>
+      </div>
+      <div class="aff-item">
+        <div class="aff-label">Research Focus</div>
+        <div class="aff-value">Tech Policy, Cybersecurity, Digital Governance, Indo-Pacific Geopolitics</div>
+      </div>
+      <div class="aff-item">
+        <div class="aff-label">Publication</div>
+        <div class="aff-value">Security and Defence Quarterly, Vol. 46(2), pp. 24-46, 2024</div>
+      </div>
+      <div class="aff-item">
+        <div class="aff-label">Speaking</div>
+        <div class="aff-value">TEDx University of Warsaw 2025</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AUTHOR -->
-<section class="author" id="author">
-  <div class="xp-window">
-    <div class="xp-titlebar">
-      <span>👤 About the Author</span>
-      <div class="xp-titlebar-buttons">
-        <div class="xp-titlebar-btn">_</div>
-        <div class="xp-titlebar-btn">□</div>
-        <div class="xp-titlebar-btn">✕</div>
-      </div>
-    </div>
-    <div class="xp-content">
-      <div class="section-label">About the Author</div>
-      <div class="author-layout">
-        <div class="author-info">
-          <h2>Isti Marta Sukma</h2>
-          <div class="author-title">M.A. - Doctoral Researcher</div>
-          <p class="author-bio">An Indonesian writer and interdisciplinary researcher specializing in politics, defense, and technology, with a focus on cyber and technological warfare in the Indo-Pacific region.</p>
-          <p class="author-bio">Her research spans national interests, global power theories, counter-terrorism, civil-military integration, cybersecurity, AI, quantum technologies, surveillance systems, maritime security, and political ideology.</p>
-          <div class="author-links">
-            <a href="https://istimartasukma.com/" target="_blank">Website ↗</a>
-            <a href="https://securityanddefence.pl/Techno-Realism-Navigating-New-Challenges-in-the-Contemporary-Role-of-Technology-in,188303,0,2.html" target="_blank">Full Paper ↗</a>
-            <a href="https://www.researchgate.net/profile/Isti-Sukma" target="_blank">ResearchGate ↗</a>
-          </div>
-        </div>
-        <div class="author-affiliations">
-          <div class="affiliation">
-            <div class="affiliation-label">Current Position</div>
-            <div class="affiliation-value">PhD Student - Political Science & Public Administration</div>
-          </div>
-          <div class="affiliation">
-            <div class="affiliation-label">Institution</div>
-            <div class="affiliation-value">University of Warsaw, Faculty of Political Science & International Studies</div>
-          </div>
-          <div class="affiliation">
-            <div class="affiliation-label">Research Focus</div>
-            <div class="affiliation-value">Tech Policy, Cybersecurity, Digital Governance, Indo-Pacific Geopolitics</div>
-          </div>
-          <div class="affiliation">
-            <div class="affiliation-label">Publication</div>
-            <div class="affiliation-value">Security and Defence Quarterly, Vol. 46(2), pp. 24-46, 2024</div>
-          </div>
-          <div class="affiliation">
-            <div class="affiliation-label">Speaking</div>
-            <div class="affiliation-value">TEDx University of Warsaw 2025</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="divider"></div>
 
-<!-- PUBLICATION CTA -->
-<section class="publication">
-  <div class="xp-window">
-    <div class="xp-titlebar">
-      <span>📖 Read the Research</span>
-      <div class="xp-titlebar-buttons">
-        <div class="xp-titlebar-btn">_</div>
-        <div class="xp-titlebar-btn">□</div>
-        <div class="xp-titlebar-btn">✕</div>
-      </div>
-    </div>
-    <div class="xp-content">
-      <div class="pub-glow"></div>
-      <div class="section-label" style="justify-content: center;">Read the Research</div>
-      <h2 class="fade-in">Navigating New Challenges in the<br>Contemporary Role of Technology in Politics</h2>
-      <p class="fade-in">Published in Security and Defence Quarterly - Open Access (CC BY)</p>
-      <a href="https://securityanddefence.pl/Techno-Realism-Navigating-New-Challenges-in-the-Contemporary-Role-of-Technology-in,188303,0,2.html" target="_blank" class="pub-btn fade-in">
-        Read Full Paper
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
+<div class="cta">
+  <div class="section-label">Read the Research</div>
+  <h2 class="fade-in">Navigating New Challenges in the<br>Contemporary Role of Technology in Politics</h2>
+  <p class="fade-in">Published in Security and Defence Quarterly, Open Access (CC BY)</p>
+  <a href="https://securityanddefence.pl/Techno-Realism-Navigating-New-Challenges-in-the-Contemporary-Role-of-Technology-in,188303,0,2.html" target="_blank" class="cta-btn fade-in">Read Full Paper</a>
+</div>
 
-<!-- FOOTER -->
+<div class="divider"></div>
+
 <footer>
-  <div class="f-left">TECHNO-REALISM © 2024 ISTI MARTA SUKMA</div>
-  <div class="f-right">Technology as a means of power</div>
+  <span>Techno-Realism &copy; 2024 Isti Marta Sukma</span>
+  <span>Technology as a means of power</span>
 </footer>
 
 <script>
-  // Intersection Observer for fade-in animations
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.15 });
-
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
-<!-- TASKBAR -->
-<div class="taskbar">
-  <button class="start-button">Start</button>
-  <div class="taskbar-apps">
-    <div class="taskbar-app">Techno-Realism</div>
-    <div class="taskbar-app">Browser</div>
-    <div class="taskbar-app">Research</div>
-  </div>
-  <div class="system-tray">
-    <div class="system-icon">🔊</div>
-    <div class="system-icon">📡</div>
-  </div>
-  <div class="time" id="time">2:24 PM</div>
-</div>
-
-<script>
-  // Update taskbar time
-  function updateTime() {
-    const now = new Date();
-    const hours = now.getHours() % 12 || 12;
-    const mins = String(now.getMinutes()).padStart(2, '0');
-    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
-    document.getElementById('time').textContent = `${hours}:${mins} ${ampm}`;
-  }
-  updateTime();
-  setInterval(updateTime, 1000);
-</script>
+</body>
+</html>
